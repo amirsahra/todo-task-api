@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TaskController extends Controller
 {
@@ -33,8 +34,9 @@ class TaskController extends Controller
         return TaskResource::make($task);
     }
 
-    public function destroy($id)
+    public function destroy(Task $task): Response
     {
-        //
+        $task->delete();
+        return response()->noContent();
     }
 }
