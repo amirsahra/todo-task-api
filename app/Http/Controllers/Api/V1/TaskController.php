@@ -10,7 +10,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        Task::all();
+        return Task::all();
     }
 
     /**
