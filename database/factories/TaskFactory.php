@@ -11,10 +11,11 @@ class TaskFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->sentence(),
+            'is_completed' => rand(0, 1)
         ];
     }
 }
