@@ -11,6 +11,6 @@ class RegisterController extends Controller
 {
     public function __invoke(RegisterRequest $request)
     {
-        User::create($request->validated());
+        User::create($request->getData());
     }
 }

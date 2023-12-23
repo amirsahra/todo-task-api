@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class RegisterRequest extends FormRequest
@@ -20,8 +21,15 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'max:255'],
             'password' => ['required', 'max:255'],
-            'email' => ['required', 'max:255', Rule::unique('users', 'email')],
+            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
         ];
+    }
+
+    public function getData()
+    {
+        $data = $this->validated();
+        $data['password'] = Hash::make($data['password']);
+        return $data;
     }
 
     public function failedValidation(Validator $validator)
