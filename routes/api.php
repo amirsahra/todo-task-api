@@ -5,7 +5,6 @@ use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\LogoutController;
 use App\Http\Controllers\Api\V1\RegisterController;
 use App\Http\Controllers\Api\V1\TaskController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,14 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::prefix('V1')->group(function () {
-    Route::post('login', LoginController::class)->middleware('guest');
+Route::middleware('auth:sanctum')->prefix('V1')->group(function (){
     Route::post('logout', LogoutController::class);
-    Route::post('register', RegisterController::class)->middleware('guest');
     Route::apiResource('tasks', TaskController::class);
     Route::patch('/tasks/{task}/complete', CompleteTaskController::class);
+});
+
+Route::prefix('V1')->middleware('guest')->group(function () {
+    Route::post('login', LoginController::class);
+    Route::post('register', RegisterController::class);
 });
