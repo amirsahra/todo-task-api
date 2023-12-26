@@ -11,6 +11,11 @@ class RegisterController extends Controller
 {
     public function __invoke(RegisterRequest $request)
     {
-        User::create($request->getData());
+        $user = User::create($request->getData());
+        return response()->customJson(
+            ['token' => $user->createToken("API TOKEN")->plainTextToken],
+            'User Created Successfully',
+            200
+        );
     }
 }
