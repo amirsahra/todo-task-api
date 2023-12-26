@@ -24,9 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('V1')->group(function () {
-    Route::post('login', LoginController::class);
+    Route::post('login', LoginController::class)->middleware('guest');
     Route::post('logout', LogoutController::class);
-    Route::post('register', RegisterController::class);
+    Route::post('register', RegisterController::class)->middleware('guest');
     Route::apiResource('tasks', TaskController::class);
     Route::patch('/tasks/{task}/complete', CompleteTaskController::class);
 });
