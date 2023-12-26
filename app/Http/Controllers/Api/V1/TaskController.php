@@ -14,12 +14,18 @@ class TaskController extends Controller
 {
     public function index()
     {
-        return TaskResource::collection(Task::all());
+        return response()->customJson(
+            ['tasks' => TaskResource::collection(Task::all())],
+            'Tasks list',
+            200
+        );
     }
 
     public function store(StoreTaskRequest $request): TaskResource
     {
         $task = Task::create($request->validated());
+
+
         return TaskResource::make($task);
     }
 
