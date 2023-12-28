@@ -50,17 +50,15 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof ValidationException) {
-            return $this->generateExceptionErrorResponse($exception, 422, $request);
+            return $this->generateExceptionErrorResponse($exception, 422);
         }
 
         if ($exception instanceof QueryException) {
-            // Custom response for QueryException
-            return response()->json(['error' => 'Query Exception'], 500);
+            return $this->generateExceptionErrorResponse($exception, 500);
         }
 
         if ($exception instanceof ModelNotFoundException) {
-            // Custom response for ModelNotFoundException
-            return response()->json(['error' => 'Model not found'], 404);
+            return $this->generateExceptionErrorResponse($exception, 404);
         }
 
         // Handle other exceptions or errors here
