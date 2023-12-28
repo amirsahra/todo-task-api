@@ -21,12 +21,13 @@ class TaskController extends Controller
         );
     }
 
-    public function store(StoreTaskRequest $request): TaskResource
+    public function store(StoreTaskRequest $request)
     {
-        $task = Task::create($request->validated());
-
-
-        return TaskResource::make($task);
+        return response()->customJson(
+            ['task' => Task::create($request->validated())],
+            'Task create successfully',
+            200
+        );
     }
 
     public function show(Task $task)
