@@ -1,64 +1,263 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Todo task
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Example RESTFUll API in Laravel
+## Overview
 
-## About Laravel
+This repository serves as a comprehensive example of a meticulously crafted RESTful API using Laravel. It not only showcases the implementation of RESTful endpoints but also embodies best practices in coding, leveraging Laravel's robust features.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Features Showcased:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Implementation of RESTful API Endpoints:** Demonstrates a well-defined structure and functionality of various API endpoints adhering to RESTful principles.
+- **Leveraging Laravel's Response and Request Handling:** Utilizes Laravel's built-in functionalities effectively for handling responses, managing requests, and ensuring secure data flow.
+- **Exemplary Demonstration of Clean and Structured Code:** Emphasizes clean, maintainable, and structured coding practices, serving as a guide for developers to create organized and scalable applications.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+This example repository offers an insightful reference for implementing RESTful APIs in Laravel. Dive into the codebase to gain a deeper understanding of utilizing Laravel's features effectively and implementing industry-best practices.
 
-## Learning Laravel
+### Purpose
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Primarily, this source code repository serves as an educational resource, exemplifying how to architect and structure a robust RESTful API project using Laravel. It aims to aid developers in comprehending the implementation of Laravel features and adopting optimal coding practices for their projects.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Feel free to explore, learn, and adapt the showcased patterns and practices to enhance your own projects.
 
-## Laravel Sponsors
+## Installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Prerequisites
 
-### Premium Partners
+- PHP ^7.3 | ^8.0
+- laravel 8
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Steps
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/amirsahra/todo-task-api.git
+    ```
+2. Install dependencies:
+    ```bash
+    composer install
+    ```
+3. Set up environment variables by creating a `.env` file:
+    ```bash
+    cp .env.example .env
+    ```
+   Update `.env` with your configuration (database, app key, etc.).
+
+4. Run migrations and seeders (if applicable):
+    ```bash
+    php artisan migrate --seed
+    ```
+
+## Usage
+
+Explain how to use your API:
+
+1. Start the development server:
+    ```bash
+    php artisan serve
+    ```
+
+2. Use tools like Postman or curl to interact with the API endpoints.
+
+## API Endpoints
+
+### List of Available Endpoints
+
+#### Auth Endpoints
+
+- **Login**
+    - Method: `POST`
+    - Description: Logs in a user with their credentials.
+    - Example:
+      ```bash
+      POST http://127.0.0.1:8000/api/V1/login
+
+      Body:
+      {
+          "email": "vhammes@example.com",
+          "password": "123456789"
+      }
+      ```
+
+- **Logout**
+    - Method: `POST`
+    - Description: Logs out the currently logged-in user.
+    - Example:
+      ```bash
+      POST http://127.0.0.1:8000/api/V1/logout
+
+      Body:
+      {
+          "email": "vhammes@example.com",
+          "password": "123456789"
+      }
+      ```
+
+- **Register**
+    - Method: `POST`
+    - Description: Registers a new user.
+    - Example:
+      ```bash
+      POST http://127.0.0.1:8000/api/V1/register
+
+      Body:
+      {
+          "name": "amir",
+          "email": "amirhosein.sahra@gmail.com",
+          "password": "123456789"
+      }
+      ```
+
+- **Show Current User**
+    - Method: `GET`
+    - Description: Retrieves information about the currently logged-in user.
+    - Example:
+      ```sql
+      GET http://127.0.0.1:8000/api/user
+
+      Headers:
+      {
+          "Authorization": "Bearer 1|pY6W2ys7VWlTgaSr4pAbc0XOVIRWcbdNihqaWCMU",
+          "Accept": "application/json",
+          "Referer": "localhost"
+      }
+      ```
+
+#### Task Endpoints
+
+- **Index**
+    - Method: `GET`
+    - Description: Retrieves all tasks.
+    - Example:
+      ```bash
+      GET http://127.0.0.1:8000/api/V1/tasks
+
+      Headers:
+      {
+          "Authorization": "Bearer 3|vJjX0aKJYOgcXodNqWqpWbImfE3MYUPxEwjPlMN2",
+          "Accept": "application/json"
+      }
+      ```
+
+- **Show**
+    - Method: `GET`
+    - Description: Retrieves details of a specific task by ID.
+    - Example:
+      ```bash
+      GET http://127.0.0.1:8000/api/V1/tasks/1
+
+      Headers:
+      {
+          "Authorization": "Bearer 3|vJjX0aKJYOgcXodNqWqpWbImfE3MYUPxEwjPlMN2",
+          "Accept": "application/json"
+      }
+      ```
+
+- **Store**
+    - Method: `POST`
+    - Description: Creates a new task.
+    - Example:
+      ```css
+      POST http://127.0.0.1:8000/api/V1/tasks
+
+      Headers:
+      {
+          "Authorization": "Bearer 3|vJjX0aKJYOgcXodNqWqpWbImfE3MYUPxEwjPlMN2",
+          "Accept": "application/vnd.api+json"
+      }
+      Body:
+      {
+          "name": "amir hossein sahra"
+      }
+      ```
+
+- **Update**
+    - Method: `PUT`
+    - Description: Updates an existing task by ID.
+    - Example:
+      ```css
+      PUT http://127.0.0.1:8000/api/V1/tasks/13
+
+      Headers:
+      {
+          "Authorization": "Bearer 3|vJjX0aKJYOgcXodNqWqpWbImfE3MYUPxEwjPlMN2",
+          "Accept": "application/json"
+      }
+      Body:
+      {
+          "name": "new name update"
+      }
+      ```
+
+- **Completed**
+    - Method: `PATCH`
+    - Description: Marks a task as completed by ID.
+    - Example:
+      ```bash
+      PATCH http://127.0.0.1:8000/api/V1/tasks/10/complete
+
+      Headers:
+      {
+          "Authorization": "Bearer 1|pY6W2ys7VWlTgaSr4pAbc0XOVIRWcbdNihqaWCMU",
+          "Accept": "application/json"
+      }
+      ```
+
+- **Destroy**
+    - Method: `DELETE`
+    - Description: Deletes a task by ID.
+    - Example:
+      ```bash
+      DELETE http://127.0.0.1:8000/api/V1/tasks/11
+
+      Headers:
+      {
+          "Authorization": "Bearer 3|vJjX0aKJYOgcXodNqWqpWbImfE3MYUPxEwjPlMN2"
+      }
+      ```
+
+## Authentication
+### Token-Based Authentication
+
+This API utilizes Token-Based Authentication, specifically using the Bearer Token for authentication. In this method, a token serves as the authentication credential for each request sent.
+
+#### Examples of Authentication
+
+##### Login Endpoint
+
+To log in, a POST request is used at this address:
+
+```http
+POST http://127.0.0.1:8000/api/V1/login
+
+Body:
+{
+    "email": "vhammes@example.com",
+    "password": "123456789"
+}
+```
+This successful request provides the user with a token of type Bearer, 
+which should be included in the headers of all subsequent requests:
+```http 
+Authorization: Bearer YOUR_ACCESS_TOKEN
+```
+#### Authentication Example in Endpoints
+For instance, in the headers of the following request, 
+the token used for authentication is sent as a Bearer in the request:
+```http 
+GET http://127.0.0.1:8000/api/user
+
+Headers:
+{
+    "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+    "Accept": "application/json",
+    "Referer": "localhost"
+}
+```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Explain how other developers can contribute to the project. Include information about submitting issues, pull requests, coding standards, etc.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Specify the license for your project.
