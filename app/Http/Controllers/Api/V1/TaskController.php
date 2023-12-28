@@ -39,15 +39,23 @@ class TaskController extends Controller
         );
     }
 
-    public function update(UpdateTaskRequest $request, Task $task): TaskResource
+    public function update(UpdateTaskRequest $request, Task $task)
     {
         $task->update($request->validated());
-        return TaskResource::make($task);
+        return response()->customJson(
+            ['task' => $task ],
+            'Task update successfully',
+            200
+        );
     }
 
-    public function destroy(Task $task): Response
+    public function destroy(Task $task)
     {
         $task->delete();
-        return response()->noContent();
+        return response()->customJson(
+            ['task' => $task ],
+            'Task delete successfully',
+            200
+        );
     }
 }
