@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -37,5 +41,49 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof AuthenticationException) {
+            return $this->generateExceptionErrorResponse($request, $exception, 401);
+        }
+
+        if ($exception instanceof ValidationException) {
+
+            return response()->json(['error' => $exception->getMessage()], 422);
+        }
+
+        if ($exception instanceof QueryException) {
+            // Custom response for QueryException
+            return response()->json(['error' => 'Query Exception'], 500);
+        }
+
+        if ($exception instanceof ModelNotFoundException) {
+            // Custom response for ModelNotFoundException
+            return response()->json(['error' => 'Model not found'], 404);
+        }
+
+        // Handle other exceptions or errors here
+        // For example, you can check for other types of exceptions and return appropriate responses
+
+        return parent::render($request, $exception);
+    }
+
+    private function generateExceptionErrorResponse($request, Throwable $exception,int $status)
+    {
+        return response()->customJson(
+            [
+                'message' => $exception->getMessage(),
+                'line' => $exception->getLine(),
+                'file' => $exception->getFile(),
+                'code' => $exception->getCode(),
+                'previous' => $exception->getPrevious(),
+                'request' => $request,
+                'trace' => $exception->getTrace(),
+            ],
+            $exception->getMessage(),
+            $status
+        );
     }
 }
