@@ -46,12 +46,11 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof AuthenticationException) {
-            return $this->generateExceptionErrorResponse($request, $exception, 401);
+            return $this->generateExceptionErrorResponse($exception, 401);
         }
 
         if ($exception instanceof ValidationException) {
-
-            return response()->json(['error' => $exception->getMessage()], 422);
+            return $this->generateExceptionErrorResponse($exception, 422, $request);
         }
 
         if ($exception instanceof QueryException) {
@@ -70,16 +69,16 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
-    private function generateExceptionErrorResponse($request, Throwable $exception,int $status)
+    private function generateExceptionErrorResponse(Throwable $exception, int $status)
     {
         return response()->customJson(
             [
                 'message' => $exception->getMessage(),
+                'errors' => (isset($exception->validator)) ? $exception->validator->errors()->toArray() : array(),
                 'line' => $exception->getLine(),
                 'file' => $exception->getFile(),
                 'code' => $exception->getCode(),
                 'previous' => $exception->getPrevious(),
-                'request' => $request,
                 'trace' => $exception->getTrace(),
             ],
             $exception->getMessage(),
