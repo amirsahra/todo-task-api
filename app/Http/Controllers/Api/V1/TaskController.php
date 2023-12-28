@@ -29,9 +29,13 @@ class TaskController extends Controller
         return TaskResource::make($task);
     }
 
-    public function show(Task $task): TaskResource
+    public function show(Task $task)
     {
-        return TaskResource::make($task);
+        return response()->customJson(
+            ['task' => TaskResource::make($task)],
+            'Show task',
+            200
+        );
     }
 
     public function update(UpdateTaskRequest $request, Task $task): TaskResource
