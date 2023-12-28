@@ -254,10 +254,6 @@ Headers:
 }
 ```
 
-## Contributing
-
-Explain how other developers can contribute to the project. Include information about submitting issues, pull requests, coding standards, etc.
-
 ## License
 
-Specify the license for your project.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
