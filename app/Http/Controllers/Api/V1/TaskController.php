@@ -14,29 +14,48 @@ class TaskController extends Controller
 {
     public function index()
     {
-        return TaskResource::collection(Task::all());
+        return response()->customJson(
+            ['tasks' => TaskResource::collection(Task::all())],
+            'Tasks list',
+            200
+        );
     }
 
-    public function store(StoreTaskRequest $request): TaskResource
+    public function store(StoreTaskRequest $request)
     {
-        $task = Task::create($request->validated());
-        return TaskResource::make($task);
+        return response()->customJson(
+            ['task' => Task::create($request->validated())],
+            'Task create successfully',
+            200
+        );
     }
 
-    public function show(Task $task): TaskResource
+    public function show(Task $task)
     {
-        return TaskResource::make($task);
+        return response()->customJson(
+            ['task' => TaskResource::make($task)],
+            'Show task',
+            200
+        );
     }
 
-    public function update(UpdateTaskRequest $request, Task $task): TaskResource
+    public function update(UpdateTaskRequest $request, Task $task)
     {
         $task->update($request->validated());
-        return TaskResource::make($task);
+        return response()->customJson(
+            ['task' => $task ],
+            'Task update successfully',
+            200
+        );
     }
 
-    public function destroy(Task $task): Response
+    public function destroy(Task $task)
     {
         $task->delete();
-        return response()->noContent();
+        return response()->customJson(
+            ['task' => $task ],
+            'Task delete successfully',
+            200
+        );
     }
 }

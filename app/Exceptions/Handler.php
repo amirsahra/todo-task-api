@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -37,5 +41,46 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof AuthenticationException) {
+            return $this->generateExceptionErrorResponse($exception, 401);
+        }
+
+        if ($exception instanceof ValidationException) {
+            return $this->generateExceptionErrorResponse($exception, 422);
+        }
+
+        if ($exception instanceof QueryException) {
+            return $this->generateExceptionErrorResponse($exception, 500);
+        }
+
+        if ($exception instanceof ModelNotFoundException) {
+            return $this->generateExceptionErrorResponse($exception, 404);
+        }
+
+        // Handle other exceptions or errors here
+        // For example, you can check for other types of exceptions and return appropriate responses
+
+        return parent::render($request, $exception);
+    }
+
+    private function generateExceptionErrorResponse(Throwable $exception, int $status)
+    {
+        return response()->customJson(
+            [
+                'message' => $exception->getMessage(),
+                'errors' => (isset($exception->validator)) ? $exception->validator->errors()->toArray() : array(),
+                'line' => $exception->getLine(),
+                'file' => $exception->getFile(),
+                'code' => $exception->getCode(),
+                'previous' => $exception->getPrevious(),
+                'trace' => $exception->getTrace(),
+            ],
+            $exception->getMessage(),
+            $status
+        );
     }
 }

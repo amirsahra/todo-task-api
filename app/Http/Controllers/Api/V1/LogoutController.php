@@ -10,5 +10,8 @@ class LogoutController extends Controller
     public function __invoke(Request $request)
     {
         auth()->logout();
+        return response()->customJson(
+            [], 'User logout Successfully', 200
+        );
     }
 }
